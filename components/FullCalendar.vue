@@ -83,18 +83,18 @@ export default {
         events: this.events,
         eventSources: this.eventSources,
 
-        eventRender(...args) {
+        eventRender() {
           if (this.sync) {
             self.events = cal.fullCalendar('clientEvents')
           }
-          self.$emit('event-render', ...args)
+          self.$emit('event-render', arguments);
         },
 
-        viewRender(...args) {
+        viewRender() {
           if (this.sync) {
             self.events = cal.fullCalendar('clientEvents')
           }
-          self.$emit('view-render', ...args)
+          self.$emit('view-render', arguments);
         },
 
         eventDestroy(event) {
@@ -103,24 +103,24 @@ export default {
           }
         },
 
-        eventClick(...args) {
-          self.$emit('event-selected', ...args)
+        eventClick() {
+          self.$emit('event-selected', arguments);
         },
 
-        eventDrop(...args) {
-          self.$emit('event-drop', ...args)
+        eventDrop() {
+          self.$emit('event-drop', arguments);
         },
 
-        eventReceive(...args) {
-          self.$emit('event-receive', ...args)
+        eventReceive() {
+          self.$emit('event-receive', arguments);
         },
 
-        eventResize(...args) {
-          self.$emit('event-resize', ...args)
+        eventResize() {
+          self.$emit('event-resize', arguments);
         },
 
-        dayClick(...args) {
-          self.$emit('day-click', ...args)
+        dayClick() {
+          self.$emit('day-click', arguments);
         },
         select(start, end, jsEvent, view, resource) {
           self.$emit('event-created', {
@@ -137,7 +137,7 @@ export default {
 
   mounted() {
     const cal = $(this.$el),
-      self = this
+      self = this;
 
     this.$on('remove-event', (event) => {
       if (event && event.hasOwnProperty('id')) {
@@ -175,11 +175,11 @@ export default {
   },
 
   methods: {
-    fireMethod(...options) {
-      return $(this.$el).fullCalendar(...options)
+    fireMethod() {
+      let el = $(this.$el)
+      return el.fullCalendar.apply(el, arguments);
     },
   },
-
   watch: {
     events: {
       deep: true,
